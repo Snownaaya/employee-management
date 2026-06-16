@@ -35,19 +35,15 @@ func main() {
 
 		case CommandAddDossier:
 			extensionflow.Add(&names, &positions)
-			break
 
 		case CommandPrintDossier:
 			extensionflow.PrintDossiers(&names, &positions)
-			break
 
 		case CommandDeleteDossier:
 			extensionflow.Delete(&names, &positions)
-			break
 
 		case CommandSearchName:
 			extensionflow.SearchLastName(&names, &positions)
-			break
 
 		case CommanfExit:
 			isWork = false

@@ -33,7 +33,6 @@ func Delete(names *[]users.FullName, jobTitles *[]users.Position) {
 	name := UserInput("Введите номер человека, который вы хотите удалить: ")
 
 	number, err := strconv.Atoi(name)
-
 	if err != nil {
 		fmt.Println("Ошибка: введено не число. Попробуйте снова.")
 		return
@@ -47,9 +46,9 @@ func Delete(names *[]users.FullName, jobTitles *[]users.Position) {
 	}
 
 	*names = append(
-		(*names)[:number],
-		(*names)[number:+1]...)
-
+		(*names)[:index],
+		(*names)[index:+1]...)
+		
 	*jobTitles = append(
 		(*jobTitles)[:number],
 		(*jobTitles)[number:+1]...,

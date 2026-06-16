@@ -13,7 +13,6 @@ func UserInput(prompt string) string{
 	
 	reader := bufio.NewReader(os.Stdin)
 	text, err := reader.ReadString('\n')
-
 	if err != nil {
 		return ""
 	}
