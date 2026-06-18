@@ -1,9 +1,10 @@
 package extensionflow
 
 import (
-	"FirstMeaw/Internal/users"
 	"fmt"
 	"strconv"
+
+	"FirstMeaw/Internal/infrastructure"
 )
 
 func Add(names *[]users.FullName, jobTitle *[]users.Position) {
