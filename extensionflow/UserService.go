@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"FirstMeaw/Internal/infrastructure"
+	"FirstMeaw/Internal/users"
 )
 
 func Add(names *[]users.FullName, jobTitle *[]users.Position) {
@@ -49,10 +49,10 @@ func Delete(names *[]users.FullName, jobTitles *[]users.Position) {
 	*names = append(
 		(*names)[:index],
 		(*names)[index:+1]...)
-		
+
 	*jobTitles = append(
-		(*jobTitles)[:number],
-		(*jobTitles)[number:+1]...,
+		(*jobTitles)[:index],
+		(*jobTitles)[index:+1]...,
 	)
 
 	fmt.Println("Досье удалено: ", names, jobTitles)
@@ -74,9 +74,9 @@ func SearchLastName(names *[]users.FullName, jobTitle *[]users.Position) {
 	}
 }
 
-func PrintDossiers(names *[]users.FullName, jobTitle *[]users.Position) {
-	for i := 0; i < len(*names); i++ {
+func PrintDossiers(names []users.FullName, jobTitle []users.Position) {
+	for i := 0; i < len(names); i++ {
 
-		fmt.Printf("%d) ФИО, Должность: %s %s\n", i+1, (*names)[i], (*jobTitle)[i])
+		fmt.Printf("%d) ФИО, Должность: %s %s\n", i+1, (names)[i], (jobTitle)[i])
 	}
 }

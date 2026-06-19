@@ -2,14 +2,15 @@ package positions
 
 import (
 	"fmt"
+	"strconv"
 
 	"FirstMeaw/Internal/extensionflow"
-	users "FirstMeaw/Internal/infrastructure"
+	"FirstMeaw/Internal/users"
 )
 
 func AddEmployee(employees map[users.Position]*[]users.FullName) {
 	positionInput := extensionflow.UserInput("Введите должность: ")
-	position := users.Position{positionInput}
+	position := users.Position{JobTitle: positionInput}
 
 	name := extensionflow.UserInput("Введите имя: ")
 	lastName := extensionflow.UserInput("Введите фамилию: ")
@@ -29,46 +30,71 @@ func AddEmployee(employees map[users.Position]*[]users.FullName) {
 		emptySlice := []users.FullName{}
 		employees[position] = &emptySlice
 	}
-	*employees[position] = append(*employees[position], newUser)
+	fullNames := employees[position]
+	*fullNames = append(*fullNames, newUser)
 
 	fmt.Println("Добавлено: ", newUser, position)
 }
 
 func RemoveEmployee(employees map[users.Position]*[]users.FullName) {
 	positionInput := extensionflow.UserInput("Введите должность: ")
-	position := users.Position{positionInput}
-
-	lastNameInput := extensionflow.UserInput("Введите фамилию сотрудника, чтобы удалить: ")
-	lastName := users.FullName{
-		LastName: lastNameInput,
-	}
-	if employees == nil {
-		fmt.Println("Такого человека нет: ")
-		return
-	}
+	position := users.Position{JobTitle: positionInput}
 
 	employeeList, ok := employees[position]
-	if ok == false {
+	if ok != true {
+		fmt.Println("Должность не найдена.")
 		return
 	}
 
-	*employeeList = append((*employeeList), lastName)
+	if len(*employeeList) == 0 {
+		fmt.Println("Список сотрудников пуст.")
+		return
+	}
 
-	delete(employees, position)
-	fmt.Println("Удален сотрудник: ", position)
+	for i, employee := range *employeeList {
+		fmt.Println(i+1, ".", employee)
+	}
+
+	numberInput := extensionflow.UserInput("Введите номер сотрудника для удаления: ")
+
+	choice, err := strconv.Atoi(numberInput)
+	if err != nil {
+		fmt.Println("Некорректный номер.")
+		return
+	}
+
+	index := choice - 1
+
+	if index < 0 || index >= len(*employeeList) {
+		fmt.Println("Ошибка: сотрудника не существует.")
+		return
+	}
+
+	*employeeList = append(
+		(*employeeList)[:index],
+		(*employeeList)[index+1:]...,
+	)
+
+	fmt.Println("Сотрудник удалён.")
+
+	if len(*employeeList) == 0 {
+		delete(employees, position)
+		fmt.Println("Должность удалена, так как сотрудников больше не осталось.")
+	}
 }
 
 func FullInfo(employees map[users.Position]*[]users.FullName) {
-	if employees == nil{
+	if len(employees) == 0 {
 		fmt.Println("Список пуст.")
 		return
 	}
 
-	for	position, userName := range employees{
-		fmt.Println("Должность: ", position.JobTitle)
-		
-		for i := 0; i < len(*userName); i++ {
-			fmt.Println("ФИО: ", (*userName)[i])
+	number := 1
+
+	for position, userName := range employees {
+		for _, name := range *userName {
+			fmt.Println(number, ".", position.JobTitle, "-", name)
+			number++
 		}
 	}
 }

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"FirstMeaw/Internal/extensionflow"
-	"FirstMeaw/Internal/infrastructure"
+	"FirstMeaw/Internal/users"
 )
 
 const (
@@ -37,7 +37,7 @@ func main() {
 			extensionflow.Add(&names, &positions)
 
 		case CommandPrintDossier:
-			extensionflow.PrintDossiers(&names, &positions)
+			extensionflow.PrintDossiers(names, positions)
 
 		case CommandDeleteDossier:
 			extensionflow.Delete(&names, &positions)

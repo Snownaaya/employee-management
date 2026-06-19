@@ -5,7 +5,7 @@ import (
 
 	"FirstMeaw/Internal/employee-managementAdvenced/positions"
 	"FirstMeaw/Internal/extensionflow"
-	users "FirstMeaw/Internal/infrastructure"
+	users "FirstMeaw/Internal/users"
 )
 
 const (
