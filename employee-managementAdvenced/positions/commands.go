@@ -46,25 +46,13 @@ func RemoveEmployee(employees map[users.Position]*[]users.FullName) {
 		return
 	}
 
-	if len(*employeeList) == 0 {
-		fmt.Println("Список сотрудников пуст.")
-		return
-	}
-
-	for i, employee := range *employeeList {
-		fmt.Println(i+1, ".", employee)
-	}
-
-	numberInput := extensionflow.UserInput("Введите номер сотрудника для удаления: ")
-
+	numberInput := extensionflow.UserInput("Введите номер, чтобы удалить сотрудника: ")
 	choice, err := strconv.Atoi(numberInput)
 	if err != nil {
-		fmt.Println("Некорректный номер.")
 		return
 	}
 
 	index := choice - 1
-
 	if index < 0 || index >= len(*employeeList) {
 		fmt.Println("Ошибка: сотрудника не существует.")
 		return
@@ -72,14 +60,12 @@ func RemoveEmployee(employees map[users.Position]*[]users.FullName) {
 
 	*employeeList = append(
 		(*employeeList)[:index],
-		(*employeeList)[index+1:]...,
-	)
+		(*employeeList)[index+1:]...)
 
-	fmt.Println("Сотрудник удалён.")
+	fmt.Println("Сотрудник удален")
 
 	if len(*employeeList) == 0 {
 		delete(employees, position)
-		fmt.Println("Должность удалена, так как сотрудников больше не осталось.")
 	}
 }
 
